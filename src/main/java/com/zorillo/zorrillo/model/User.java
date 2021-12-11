@@ -1,6 +1,8 @@
 // Model Package
 package com.zorillo.zorrillo.model;
 
+import java.util.Date;
+
 // Spring Boot imports
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,15 +25,17 @@ public class User {
      *  Document example of a user in data base:
      * 
      * { 
-     *  "id": 1,
-     *  "identification": "123456",
-     *  "name": "alan brito",
+     *  "id": 3,
+     *  "identification": "46669989",
+     *  "name": "BLODY MARRY",
+     *  "birthtDay": "1996-11-15T05:00:00.000+00:00",
+     *  "monthBirthtDay": "11",
      *  "address": "CR 34-45",
-     *  "cellPhone": "311222222",
-     *  "email": "alanbrito@gmail.com",
+     *  "cellPhone": "3174565625",
+     *  "email": "stellez@gmail.com",
      *  "password": "Demo123.",
-     *  "zone": "ZONA 1",
-     *  "type": "COORD"
+     *  "zone": "ZONA 2",
+     *  "type": "ASE"
      * }
      */
     
@@ -40,6 +44,8 @@ public class User {
     private Integer id;
     private String identification;
     private String name;
+    private Date birthtDay;
+    private String monthBirthtDay;
     private String address;
     private String cellPhone;
     private String email;

@@ -58,7 +58,7 @@ public class UserService {
         if(!user.isEmpty()) {
             return user.get();
         }
-        return new User(null, null, null, null, null, null, null, null, null);
+        return new User(null, null, null, null, null, null, null, null, null, null, null);
     }
 
     // Find user by email and password
@@ -67,7 +67,7 @@ public class UserService {
         if(!user.isEmpty()) {
             return user.get();
         }
-        return new User(null, null, null, null, null, null, null, null, null);
+        return new User(null, null, null, null, null, null, null, null, null, null, null);
     }
 
     // Update user
