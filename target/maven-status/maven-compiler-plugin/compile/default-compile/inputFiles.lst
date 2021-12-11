@@ -1,0 +1,12 @@
+/home/dibier/Documentos/M/retoC4/src/main/java/com/zorillo/zorrillo/repository/UserRepository.java
+/home/dibier/Documentos/M/retoC4/src/main/java/com/zorillo/zorrillo/repository/FraganceRepository.java
+/home/dibier/Documentos/M/retoC4/src/main/java/com/zorillo/zorrillo/service/UserService.java
+/home/dibier/Documentos/M/retoC4/src/main/java/com/zorillo/zorrillo/model/Fragance.java
+/home/dibier/Documentos/M/retoC4/src/main/java/com/zorillo/zorrillo/model/NextId.java
+/home/dibier/Documentos/M/retoC4/src/main/java/com/zorillo/zorrillo/service/FraganceService.java
+/home/dibier/Documentos/M/retoC4/src/main/java/com/zorillo/zorrillo/model/User.java
+/home/dibier/Documentos/M/retoC4/src/main/java/com/zorillo/zorrillo/ZorrilloApplication.java
+/home/dibier/Documentos/M/retoC4/src/main/java/com/zorillo/zorrillo/repository/mongo/FraganceMongoRepository.java
+/home/dibier/Documentos/M/retoC4/src/main/java/com/zorillo/zorrillo/controller/FraganceController.java
+/home/dibier/Documentos/M/retoC4/src/main/java/com/zorillo/zorrillo/repository/mongo/UserMongoRepository.java
+/home/dibier/Documentos/M/retoC4/src/main/java/com/zorillo/zorrillo/controller/UserController.java

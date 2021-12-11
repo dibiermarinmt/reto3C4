@@ -1,0 +1,15 @@
+.gradient-custom-2 {
+  background: rgb(83,185,111);
+  background: linear-gradient(90deg, rgba(83,185,111,1) 0%, rgba(22,148,194,0.7469188358937324) 100%, rgba(0,212,255,1) 100%);
+}
+
+@media (min-width: 768px) {
+  .gradient-form {
+    height: 100vh !important;
+  }
+}
+@media (min-width: 769px) {
+  .gradient-custom-2 {
+    border-radius: 3rem;
+  }
+}

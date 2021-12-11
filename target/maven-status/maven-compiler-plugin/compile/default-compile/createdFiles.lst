@@ -1,0 +1,13 @@
+com/zorillo/zorrillo/repository/mongo/FraganceMongoRepository.class
+com/zorillo/zorrillo/repository/mongo/UserMongoRepository.class
+com/zorillo/zorrillo/controller/UserController.class
+com/zorillo/zorrillo/model/NextId.class
+com/zorillo/zorrillo/ZorrilloApplication.class
+com/zorillo/zorrillo/service/FraganceService.class
+com/zorillo/zorrillo/repository/FraganceRepository.class
+com/zorillo/zorrillo/model/User.class
+com/zorillo/zorrillo/service/UserService.class
+com/zorillo/zorrillo/ZorrilloApplication$1.class
+com/zorillo/zorrillo/model/Fragance.class
+com/zorillo/zorrillo/repository/UserRepository.class
+com/zorillo/zorrillo/controller/FraganceController.class

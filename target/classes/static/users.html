@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- favicon-->
+  <link rel="shortcut icon" href="img/favicon.ico">
+
+  <title>Zorrillo LTDA</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script-->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/usersFunciones.js"></script>
+</head>
+
+
+<body>
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3"> <!-- mean card -->
+          <div class="card-header gradient-custom-2"> <!-- header -->
+            <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+              <div class="text-center">
+                <img src="img/zorrilloblanco.png" style="width: 185px;" alt="logo">
+                <h4 class="mt-1 mb-5 pb-1">Zorrillo LTDA</h4>
+              </div>
+              <h4 class="mb-4">Somos más que una compañía</h4>
+              <p class="small mb-0">Zorrillo LTDA es una empresa Ibaguereña con más de 10 años de trayectoria en la venta de perfumes y colonias mediante el servicio de venta directa por catalogo, se ubica en el barrio Interlaken. Actualmente cuenta con más de 80 empleados entre directos y fuerza de ventas independiente.</p>
+              <p class="small mb-0">Contamos con una gran variedad de colonias. Estamos en constante contacto con nuestros clientes para ofrecer las fragancias que justamente ellos quieren.</p>
+            </div>
+          </div><!-- header -->
+          <div class="card-body text-center"> <!-- body-->
+            <br>
+            <br>
+            <h4 class="mt-1 mb-5 pb-1">TABLA DE ADMINISTRACIÓN DE USUARIOS</h4>
+            <p>¿Deseas crear un nuevo usuario?
+              <br>
+              <br>
+              <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="crearUser()">Crear</button>
+            </p>
+            <center><div id="editarUser" style="width: 60%;"></div></center>
+            <div id="tablaUsers"></div>
+          </div><!-- body-->
+        </div><!-- mean card -->
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+
+</html>
