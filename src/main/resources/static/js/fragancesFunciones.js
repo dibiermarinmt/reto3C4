@@ -1,4 +1,4 @@
-let raiz = "http://129.151.117.196:8080/api/fragance"; //129.151.117.196
+let raiz = "http://localhost:8080/api/fragance"; //129.151.117.196
 let alerta = "";
 
 function pintarFragances(fragances) {
@@ -6,15 +6,15 @@ function pintarFragances(fragances) {
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <!-- th scope="col"># Ref</th -->
+                    <th scope="col"># Ref</th>
                     <th scope="col">Marca</th>
                     <th scope="col">Categoría</th>
-                    <th scope="col">Presentación</th>
+                    <!-- th scope="col">Presentación</th -->
                     <th scope="col">Descripción</th>
-                    <th scope="col">Disponibilidad</th>
+                    <!-- th scope="col">Disponibilidad</th -->
                     <th scope="col">Precio</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Fotografía</th>
+                    <!-- th scope="col">Cantidad</th -->
+                    <!-- th scope="col">Fotografía</th -->
                 </tr>
             </thead>
             <tbody>
@@ -22,17 +22,18 @@ function pintarFragances(fragances) {
     for(let i = 0; i < fragances.length; i++) {
         let ref = JSON.stringify(fragances[i].reference);
         miTabla += "<tr>";
-        miTabla += "<!-- th scope='col'>"+fragances[i].reference+"</th -->";
+        miTabla += "<th scope='col'>"+fragances[i].reference+"</th>";
         miTabla += "<td>"+fragances[i].brand+"</td>";
         miTabla += "<td>"+fragances[i].category+"</td>";
-        miTabla += "<td>"+fragances[i].presentation+"</td>";
+        miTabla += "<!-- td>"+fragances[i].presentation+"</td -->";
         miTabla += "<td>"+fragances[i].description+"</td>";
-        miTabla += "<td>"+fragances[i].availability+"</td>";
+        miTabla += "<!-- td>"+fragances[i].availability+"</td -->";
         miTabla += "<td>"+fragances[i].price+"</td>";
-        miTabla += "<td>"+fragances[i].quantity+"</td>";
-        miTabla += "<td>"+fragances[i].photography+"</td>";
+        miTabla += "<!-- td>"+fragances[i].quantity+"</td -->";
+        miTabla += "<!-- td>"+fragances[i].photography+"</td -->";
         miTabla += "<td type='button' class='btn m-1 gradient-custom-2 text-white border-primary' onclick='editarFragance("+ref+")'>Editar</td>";
         miTabla += "<td type='button' class='btn m-1 gradient-custom-2 text-white border-primary' onclick='borrarFragance("+ref+")'>Borrar</td>";
+        miTabla += "<td type='button' class='btn m-1 gradient-custom-2 text-white border-primary' onclick='verFragance("+ref+")'>Ver</td>";
         miTabla += "</tr>";
     }
     miTabla += `
@@ -187,7 +188,7 @@ function actualizarFragance(ref) {
         success: function(json, textStatus, xhr) {
             alert("Fragancia editada exitosamente exitosamente.");
             consultarFragances();
-            cancelarEditar();
+            verFragance(ref);
         },
 
         error: function(xhr, status) {
@@ -232,7 +233,7 @@ function registrarFragancia(){
         success: function(respose) {
             alert("Se registró fragancia correctamente.");
             consultarFragances();
-            cancelarEditar();
+            pintarVer(fragance);
         },
 
         error: function(xhr, status){
@@ -394,3 +395,43 @@ function crearFragance(){
     $("#editarFragance").html(formulario);
     $("#brand").focus();
 }
+
+function verFragance(ref) {
+    $.ajax({
+        url: raiz + "/" +ref,
+        type:"GET",
+        async: false,
+        datatype:"JSON",
+        success:function(fragance){
+            pintarVer(fragance);
+        }
+    });
+}
+
+function pintarVer(fragance) {
+    
+    let datos = `
+        <div>
+            <div class="card-body">
+                <h5 class="card-title">${fragance.brand}</h5>
+                <h6 class="card-title">${fragance.category}</h6>
+                <p class="card-text">
+                    <br>
+                    <strong>Freferencia:</strong> &nbsp; ${fragance.reference}<br>
+                    <strong>Presentación:</strong> &nbsp; ${fragance.presentation}<br>
+                    <strong>Descripción:</strong> &nbsp; ${fragance.description}<br>
+                    <strong>Disponibilidad:</strong> &nbsp; ${fragance.availability}<br>
+                    <strong>Precio:</strong> &nbsp; ${fragance.price}<br>
+                    <strong>Cantidad:</strong> &nbsp; ${fragance.quantity}<br>
+                    <strong>Fotografía:</strong> &nbsp; ${fragance.photography}<br>
+                </p>
+
+                <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="cancelarEditar()">Cerrar</button>
+                
+            </div>
+        </div>
+    `;
+
+    $("#editarFragance").html(datos);
+}
+

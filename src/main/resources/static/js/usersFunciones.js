@@ -1,4 +1,4 @@
-let raiz = "http://129.151.117.196:8080/api/user";
+let raiz = "http://localhost:8080/api/user"; //http://129.151.117.196:8080/api/user";
 let alerta = "";
 
 function pintarUsers(users) {
@@ -6,12 +6,12 @@ function pintarUsers(users) {
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col"># Id</th>
+                    <th scope="col"># CC</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Dirección</th>
-                    <th scope="col">Celular</th>
+                    <!--th scope="col">Dirección</th-->
+                    <!--th scope="col">Celular</th-->
                     <th scope="col">Correo</th>
-                    <th scope="col">Clave</th>
+                    <!--th scope="col">Clave</th-->
                     <th scope="col">Zona</th>
                     <th scope="col">Tipo</th>
                 </tr>
@@ -24,14 +24,15 @@ function pintarUsers(users) {
                 <tr>
                     <th scope="col" id="${"identification"+id}">${users[i].identification}</th>
                     <td id="${users[i].name + id}">${users[i].name}</td>
-                    <td id="${users[i].address + id}">${users[i].address}</td>
-                    <td id="${users[i].cellPhone + id}">${users[i].cellPhone}</td>
+                    <!-- td id="${users[i].address + id}">${users[i].address}</td -->
+                    <!-- td id="${users[i].cellPhone + id}">${users[i].cellPhone}</td -->
                     <td id="${users[i].email + id}">${users[i].email}</td>
-                    <td id="${users[i].password + id}">${users[i].password}</td>
+                    <!-- td id="${users[i].password + id}">${users[i].password}</td -->
                     <td id="${users[i].zone + id}">${users[i].zone}</td>
                     <td id="${users[i].type + id}">${users[i].type}</td>
                     <td type="button" class="btn m-1 gradient-custom-2 text-white border-primary" onclick="editarUser(${users[i].id})">Editar</td>
                     <td type="button" class="btn m-1 gradient-custom-2 text-white border-primary" onclick="borrarUser(${users[i].id})">Borrar</td>
+                    <td type="button" class="btn m-1 gradient-custom-2 text-white border-primary" onclick="verUser(${users[i].id})">Ver</td>
                 </tr>
         `;
 
@@ -92,6 +93,22 @@ function borrarUser(id){
 }
 
 function pintarEditar(user){
+    let fecha = new Date(user.birthtDay);
+
+    let formato = fecha.getFullYear();
+    if(fecha.getMonth() < 9) {
+        formato += "-0";
+    } else {
+        formato += "-";
+    }
+    formato += fecha.getMonth()+1;
+    if(fecha.getDate() < 9) {
+        formato += "-0";
+    } else {
+        formato += "-";
+    }
+    formato += fecha.getDate()+1;
+
     let formulario = `
         <form>
         <h6 class="mt-1 mb-5 pb-1" style="color: red">EDITANDO USUARIO...</h6>
@@ -100,9 +117,15 @@ function pintarEditar(user){
             <input type="text" id="identification" class="form-control" placeholder="# Identificación" value="${user.identification}" />
             <label for="identification"># Identificación</label>
         </div>
+
         <div class="form-floating mb-4">
             <input type="text" id="name" class="form-control" placeholder="Nombre" value="${user.name}" />
             <label for="name">Nombre</label>
+        </div>
+
+        <div class="form-floating mb-4">
+            <input type="date" id="birthDay" class="form-control" placeholder="Fecha de Nacimiento" value="${formato}" />
+            <label for="name">Fecha de Nacimiento</label>
         </div>
 
         <div class="form-floating mb-4">
@@ -163,30 +186,33 @@ function cancelarEditar() {
     $("#editarUser").html("");
 }
 
-function actualizarUser(id) {
+function actualizarUser(idUser) {
+    let fecha = new Date($("#birthDay").val());
     var user={
-        "id":id,
-        "identification":$("#identification").val(),
-        "name":$("#name").val(),
-        "address":$("#address").val(),
-        "cellPhone":$("#cellPhone").val(),
-        "email":$("#email").val(),
-        "zone":$("#zone").val(),
-        "type":$("#type").val()
+        id: idUser,
+        identification: $("#identification").val(),
+        name: $("#name").val(),
+        birthtDay: fecha,
+        monthBirthtDay: fecha.getMonth()+1,
+        address: $("#address").val(),
+        cellPhone: $("#cellPhone").val(),
+        email: $("#email").val(),
+        zone: $("#zone").val(),
+        type: $("#type").val()
     };
     
-    var dataToSend=JSON.stringify(user);
-    $.ajax({
-        dataType: 'text',       
-        data: dataToSend,        
-        url: raiz+'/update',        
-        type: 'PUT',
-        contentType:'application/json',        
+
+    $.ajax({        
+        type:"PUT",
+        contentType:"application/json; charset=utf-8",
+        dataType: "text", //mandaba parse error con JSON
+        data: JSON.stringify(user),
+        url: raiz + "/update",
         
         success: function(json, textStatus, xhr) {
             alert("Usuario editado exitosamente.");
             consultarUsers();
-            cancelarEditar();
+            verUser(idUser);
         },
 
         error: function(xhr, status) {
@@ -206,9 +232,12 @@ function guardarEditar(id, email) {
 }
 
 function registrarUser(){
+    let fecha = new Date($("#birthDay").val()); 
     let user = {
         identification: $("#identification").val(),
         name: $("#name").val(),
+        birthtDay: fecha,
+        monthBirthtDay: String(parseInt(fecha.getMonth())+1),
         address: $("#address").val(),
         cellPhone: $("#cellPhone").val(),
         email: $("#email").val(),
@@ -216,6 +245,7 @@ function registrarUser(){
         zone: $("#zone").val(),
         type: $("#type").val()
     };
+    console.log(user);
     $.ajax({
         //crossOrigen: true,
         type:"POST",
@@ -227,7 +257,7 @@ function registrarUser(){
         success: function(respose) {
             alert("Se registró usuario correctamente.");
             consultarUsers();
-            cancelarEditar();
+            pintarVer(user);
         },
 
         error: function(xhr, status){
@@ -377,9 +407,15 @@ function crearUser(){
             <input type="text" id="identification" class="form-control" placeholder="# Identificación" />
             <label for="identification"># Identificación</label>
         </div>
+
         <div class="form-floating mb-4">
             <input type="text" id="name" class="form-control" placeholder="Nombre" />
             <label for="name">Nombre</label>
+        </div>
+
+        <div class="form-floating mb-4">
+            <input type="date" id="birthDay" class="form-control" placeholder="Fecha de Nacimiento" />
+            <label for="name">Fecha de Nacimiento</label>
         </div>
 
         <div class="form-floating mb-4">
@@ -419,4 +455,48 @@ function crearUser(){
     `;
     $("#editarUser").html(formulario);
     $("#identification").focus();
+}
+
+function verUser(id) {
+    $.ajax({
+        url: raiz + "/" +id,
+        type:"GET",
+        async: false,
+        datatype:"JSON",
+        success:function(user){
+            pintarVer(user);
+        }
+    });
+}
+
+function pintarVer(user) {
+    let mes = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+    let date = new Date(user.birthtDay);
+    let fecha = date.getFullYear() +", "
+    fecha += mes[date.getMonth()]+" ";
+    fecha += date.getDate()+1;
+    
+    let datos = `
+        <div>
+            <div class="card-body">
+                <h5 class="card-title">${user.name}</h1>
+                <p class="card-text">
+                    <br>
+                    <strong>Documento:</strong> &nbsp; ${user.identification}<br>
+                    <strong>Celular:</strong> &nbsp; ${user.cellPhone}<br>
+                    <strong>Fecha de Nacimiento:</strong> &nbsp; ${fecha}<br>
+                    <strong>Dirección:</strong> &nbsp; ${user.address}<br>
+                    <strong>Zona:</strong> &nbsp; ${user.zone}<br>
+                    <strong>Tipo:</strong> &nbsp; ${user.type}<br>
+                    <strong>Correo:</strong> &nbsp; <a href="${"mailto:"+user.email}">${user.email}</a><br>
+                    <strong>Contraseña:</strong> &nbsp; ${user.password}<br>
+                </p>
+
+                <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="cancelarEditar()">Cerrar</button>
+                
+            </div>
+        </div>
+    `;
+
+    $("#editarUser").html(datos);
 }

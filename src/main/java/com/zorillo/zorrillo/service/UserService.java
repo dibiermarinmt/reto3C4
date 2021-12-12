@@ -100,6 +100,12 @@ public class UserService {
             if(user.getName() != null) {
                 aux.get().setName(user.getName());
             }
+            if(user.getBirthtDay() != null) {
+                aux.get().setBirthtDay(user.getBirthtDay());
+            }
+            if(user.getMonthBirthtDay() != null) {
+                aux.get().setMonthBirthtDay(user.getMonthBirthtDay());
+            }
             if(user.getAddress() != null) {
                 aux.get().setAddress(user.getAddress());
             }

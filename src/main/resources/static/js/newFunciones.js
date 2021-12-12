@@ -1,10 +1,15 @@
-let raiz = "http://129.151.117.196:8080/api/user";
+const urlBase = "http://localhost:8080";
+
+let raiz = urlBase+"/api/user"; //"http://129.151.117.196:8080/api/user";
 let alerta = "";
 
 function registrarUser(){
+    let fecha = new Date($("#birthDay").val()); 
     let user = {
         identification: $("#identification").val(),
         name: $("#name").val(),
+        birthtDay: fecha,
+        monthBirthtDay: String(parseInt(fecha.getMonth())+1),
         address: $("#address").val(),
         cellPhone: $("#cellPhone").val(),
         email: $("#email").val(),
@@ -31,8 +36,6 @@ function registrarUser(){
     });
 }
 
-//--- copy init
-
 function identificationValida() {
     if($("#identification").val() != "") {
         return true;
@@ -47,6 +50,15 @@ function nombreValido() {
         return true;
     } else {
         alerta ="Campo de nombre vacío.";
+        return false;
+    }
+}
+
+function birthdayValido() {
+    if($("#birthDay").val() != "") {
+        return true;
+    } else {
+        alerta ="Campo de fecha vacío.";
         return false;
     }
 }
@@ -138,6 +150,7 @@ function datosValidos() {
     let validos = true;
     validos &&= identificationValida();
     validos &&= nombreValido();
+    validos &&= birthdayValido();
     validos &&= direccionValida();
     validos &&= celularValido();
     validos &&= correoValido();

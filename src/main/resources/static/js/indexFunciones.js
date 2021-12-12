@@ -1,4 +1,6 @@
-let raiz = "http://129.151.117.196:8080/api/user";
+//import {urlBase} from './global.js';
+const urlBase = "http://localhost:8080";
+let raiz = urlBase+"/api/user";
 let alerta = "";
 
 function habilitarUser(){
