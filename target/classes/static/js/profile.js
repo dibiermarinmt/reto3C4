@@ -3,19 +3,16 @@
  * 
  * Una vez se han validado los datos en el login,
  * se despliega un perfil según su tipo.
+ * 
  */
 
-/**
- * Esta función pinta el perfil según su tipo.
- * Contiene un html genérico del perfil con una carta
- * que será llenada con html según el tipo de usuario
- * que validó el login.
- */
-
-function pintarProfile() {
-
+function pintarProfile(id) {
+    /**
+     * Html base para el perfil de cada usuario.
+     * El div user va a ser llenado según la función
+     * pintarUserBody(id)
+     */
     let profileHtml = `
-
         <!--head-->
         <div class="card-header gradient-custom-2"> <!-- header -->
             <div class="text-white px-3 py-4 p-md-5 mx-md-4">
@@ -28,18 +25,31 @@ function pintarProfile() {
         </div>
 
         <!--body-->
-        <div class="card-body text-center">
-            <!--h4 class="mt-1 mb-5 pb-1">TABLA DE ADMINISTRACIÓN DE FRAGANCIAS</h4>
-            <p>
-                ¿Deseas crear un nuevo producto?
-                <br>
-                <br>
-                <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="crearFragance()">Crear</button>
-            </p>
-            <center><div id="editarFragance" style="width: 60%;"></div></center>
-            <div class="text-center" id="tablaFragances"></div-->            
-        </div>
+        <div class="card-body text-center" id="user"></div>
     `;
-
     $("#mainCard").html(profileHtml);
+    pintarUserBody(id);
+}
+
+function pintarUserBody(id) {
+    $.ajax({
+        url: raiz + "/" +id,
+        type:"GET",
+        async: false,
+        datatype:"JSON",
+        success:function(user){
+            let userBody = "<script>";
+            if(user.type == "ADM") {
+                userBody += "pintarAdmin("+id+");";
+            } else if(user.type == "COORD") {
+                userBody += "pintarCoord("+id+");";
+            } else if(user.type == "ASE") {
+                userBody += "pintarAse("+id+");";
+            } else {
+                userBody = "No tienes un rol asignado.";
+            }
+            userBody += "</script>";
+            $("#user").html(userBody);
+        }
+    });
 }

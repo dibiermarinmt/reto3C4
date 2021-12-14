@@ -7,7 +7,7 @@
 
 // PARÁMETROS PRINCIPALES
 //import {urlBase} from './global.js';
-const urlBase = "http://localhost:8080";
+const urlBase = "http://localhost:8080/api";
 let raiz = urlBase+"/api/user";
 let alerta = "";
 

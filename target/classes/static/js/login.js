@@ -44,8 +44,6 @@ function pintarLogin() {
                             Crea una <a class="text-muted" href="new.html">Aquí</a>.
                         </div>
 
-                        <div id="opciones" class="text-center pt-1 mb-4 pb-1"></div>
-
                     </form>
 
                 </div>
@@ -79,10 +77,9 @@ function habilitarUser(){
             console.log(json);
             if(json.id != null) {
                 alert("Bienvenido " + json.name +" ! ! !");
-                pintarOpciones();
                 $("#mainCard").html(`
                     <script>
-                        pintarProfile();
+                        pintarProfile(${json.id});
                     </script>
                 `);
             } else {
@@ -131,15 +128,6 @@ function entrarUser() {
         alert(alerta);
         alerta = "";
     }
-}
-
-function pintarOpciones(){
-    let opciones = `
-        ¿Qué deceas hacer?<br>
-        Administra usuarios <a class="text-muted" href="users.html">Aquí</a>.<br>
-        Administra productos <a class="text-muted" href="fragances.html">Aquí</a>.<br>
-    `;
-    $("#opciones").html(opciones);
 }
 
 /**
