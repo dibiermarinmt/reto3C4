@@ -40,7 +40,8 @@ function pintarUserBody(id) {
         success:function(user){
             let userBody = "<script>";
             if(user.type == "ADM") {
-                userBody += "pintarAdmin("+id+");";
+                let name = JSON.stringify(user.name);
+                userBody += "pintarAdmin("+name+");";
             } else if(user.type == "COORD") {
                 userBody += "pintarCoord("+id+");";
             } else if(user.type == "ASE") {

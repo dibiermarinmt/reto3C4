@@ -6,7 +6,7 @@
 /**
  *  Esta función pinta el html
  */
-function pintarAdmin(id) {
+function pintarAdmin(name) {
     let adminHtml = `
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -16,7 +16,7 @@ function pintarAdmin(id) {
                 <button class="nav-link" id="fragancesTab" data-bs-toggle="tab" data-bs-target="#fragances" type="button" role="tab" aria-controls="profile" aria-selected="false">Administrar Productos</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="logoutTab" data-bs-toggle="tab" data-bs-target="#logout" type="button" role="tab" aria-controls="contact" aria-selected="false">Salir</button>
+                <button class="nav-link" id="logoutTab" data-bs-toggle="tab" data-bs-target="#logout" type="button" role="tab" aria-controls="contact" aria-selected="false">${name}</button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -26,6 +26,7 @@ function pintarAdmin(id) {
         </div>
     `;
     $("#user").html(adminHtml);
+    $("#logoutTab").html(name);
     pintarUsers();
 }
 
