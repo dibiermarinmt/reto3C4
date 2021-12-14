@@ -69,12 +69,11 @@ function habilitarUser(){
 
     $.ajax({
         //crossOrigin: true,
-        url: raiz + "/" + correo + "/" + clave,
+        url: raiz + "/user/" + correo + "/" + clave,
         type: "GET",
         dataType: "JSON",
 
         success: function(json) {
-            console.log(json);
             if(json.id != null) {
                 alert("Bienvenido " + json.name +" ! ! !");
                 $("#mainCard").html(`

@@ -5,10 +5,8 @@
  * servicios de la página web.
  */
 
-// PARÁMETROS PRINCIPALES
-//import {urlBase} from './global.js';
-const urlBase = "http://localhost:8080/api";
-let raiz = urlBase+"/api/user";
+// PARÁMETROS GLOBALES
+const raiz = "http://localhost:8080/api";
 let alerta = "";
 
 /**

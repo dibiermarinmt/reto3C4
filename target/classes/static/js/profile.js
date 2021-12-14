@@ -33,7 +33,7 @@ function pintarProfile(id) {
 
 function pintarUserBody(id) {
     $.ajax({
-        url: raiz + "/" +id,
+        url: raiz + "/user/" +id,
         type:"GET",
         async: false,
         datatype:"JSON",

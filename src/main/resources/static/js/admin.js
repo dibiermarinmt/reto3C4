@@ -6,11 +6,11 @@
 /**
  *  Esta función pinta el html
  */
-function pintarAdmin() {
+function pintarAdmin(id) {
     let adminHtml = `
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="usersTab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="home" aria-selected="true">Administrar Usuarios</button>
+                <button class="nav-link active" id="usersTab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="home" aria-selected="true" onclick="pintarUsers()">Administrar Usuarios</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="fragancesTab" data-bs-toggle="tab" data-bs-target="#fragances" type="button" role="tab" aria-controls="profile" aria-selected="false">Administrar Productos</button>
@@ -26,4 +26,6 @@ function pintarAdmin() {
         </div>
     `;
     $("#user").html(adminHtml);
+    pintarUsers();
 }
+
