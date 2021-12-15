@@ -7,6 +7,7 @@
  */
 
 let idAse; //Constante global para guardar un id de Asesor.
+let zoneCoord; // Constante global para guardar la zona de un Coordinador.
 
 function pintarProfile(id) {
     /**
@@ -45,7 +46,8 @@ function pintarUserBody(id) {
                 let name = JSON.stringify(user.name);
                 userBody += "pintarAdmin("+name+");";
             } else if(user.type == "COORD") {
-                userBody += "pintarCoord("+id+");";
+                zoneCoord = user.zone;
+                userBody += "pintarCoord();";
             } else if(user.type == "ASE") {
                 idAse = id;
                 userBody += "pintarAse();";
