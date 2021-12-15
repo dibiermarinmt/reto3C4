@@ -215,7 +215,7 @@ function borrarMenuFragance(ref){
 }
 
 function generarPedido() {
-
+    let jsonPedido;
 }
 
 function cancelarPedido() {
