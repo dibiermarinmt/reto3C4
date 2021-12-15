@@ -6,6 +6,8 @@
  * 
  */
 
+let idAse; //Constante global para guardar un id de Asesor.
+
 function pintarProfile(id) {
     /**
      * Html base para el perfil de cada usuario.
@@ -45,7 +47,8 @@ function pintarUserBody(id) {
             } else if(user.type == "COORD") {
                 userBody += "pintarCoord("+id+");";
             } else if(user.type == "ASE") {
-                userBody += "pintarAse("+id+");";
+                idAse = id;
+                userBody += "pintarAse();";
             } else {
                 userBody = "No tienes un rol asignado.";
             }

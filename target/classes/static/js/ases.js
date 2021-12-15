@@ -1,4 +1,5 @@
-function pintarAse(id) {
+function pintarAse() {
+    
     let adminHtml = `
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -14,23 +15,17 @@ function pintarAse(id) {
         </div>
     `;
     $("#user").html(adminHtml);
-    pintarHacerPedido(id);
+    pintarHacerPedido();
 }
 
-function pintarHacerPedido(id) {
+function pintarHacerPedido() {
     let hacerPedido = `
         <br>
         <br>
         <h4 class="mt-1 mb-5 pb-1">TABLA DE PEDIDOS</h4>
         <p>¡Has tus pedidos!<br>
         Suma o resta al carrito de compra.</p>
-        <center>
-            <div id="hacerPedido" style="width: 60%;"></div>
-            <div id="botonesPedido">
-                
-            </div>
-            </center>
-
+        <center><div id="hacerPedido" style="width: 60%;"></div></center>
         <div id="tablaMenuFragances"></div>
     `;
     $("#pedidos").html(hacerPedido);
@@ -92,10 +87,6 @@ function consultarMenuFragances(){
     });
 }
 
-function cancelarPedirFragances() {
-    pintarListaPedido();
-}
-
 function verMenuFragance(ref) {
     $.ajax({
         url: raiz + "/fragance/" +ref,
@@ -127,7 +118,7 @@ function pintarMenuFragance(fragance) {
                     <strong>Fotografía:</strong> &nbsp; ${fragance.photography}<br>
                 </p>
 
-                <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="cancelarPedirFragances()">Cerrar</button>
+                <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="pintarListaPedido()">Cerrar</button>
                 
             </div>
         </div>
@@ -200,16 +191,13 @@ function pintarListaPedido() {
             
     miTabla += `
             </tbody>
-        </table>                        
+        </table>
+
+        <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="generarPedido()">Generar</button> &nbsp; &nbsp;
+        <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="cancelarPedido()">Cancelar</button>
     `;
+
     $("#hacerPedido").html(miTabla);
-
-    let botones = `
-        <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="guardarEditarFragance(ref)">Generar</button> &nbsp; &nbsp;
-        <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="cancelarEditarFragance()">Cancelar</button>
-    `;
-
-    $("#botonesPedido").html(botones);
 }
 
 function borrarMenuFragance(ref){
@@ -226,6 +214,15 @@ function borrarMenuFragance(ref){
     pintarListaPedido();
 }
 
+function generarPedido() {
+
+}
+
+function cancelarPedido() {
+    carrito = [];
+    cantidades = [];
+    pintarListaPedido();
+}
 
 
 
