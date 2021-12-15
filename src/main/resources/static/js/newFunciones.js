@@ -1,4 +1,4 @@
-const urlBase = "http://localhost:8080";
+const urlBase = "http://129.151.117.196:8080";
 
 let raiz = urlBase+"/api/user"; //"http://129.151.117.196:8080/api/user";
 let alerta = "";
