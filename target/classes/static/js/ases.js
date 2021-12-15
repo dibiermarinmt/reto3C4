@@ -215,7 +215,58 @@ function borrarMenuFragance(ref){
 }
 
 function generarPedido() {
-    let jsonPedido;
+
+    let json = {
+        "registerDay": new Date(Date.now()),
+        "status": "Pendiente"
+     };
+
+    $.ajax({
+        url: raiz + "/user/"+idAse,
+        type:"GET",
+        async: false,
+        datatype:"JSON",
+        success:function(user){
+            json["salesMan"] = user;
+        }    
+    });
+
+    let products = {};
+    let quantities = {};
+    let ref;
+    for(var i=0; i<carrito.length; i++) {
+        ref = carrito[i];
+        $.ajax({
+            url: raiz + "/fragance/"+ref,
+            type:"GET",
+            async: false,
+            datatype:"JSON",
+            success:function(fragance){
+                products[ref] = fragance;
+            }    
+        });
+        quantities[ref] = cantidades[i];
+    }
+    json["products"] = products;
+    json["quantities"] = quantities;
+
+    $.ajax({
+        //crossOrigen: true,
+        type:"POST",
+        contentType:"application/json; charset=utf-8",
+        dataType: "text", //mandaba parse error con JSON
+        data: JSON.stringify(json),
+        url: raiz + "/order/new",
+
+        success: function(respose) {
+            alert("Se registró orden correctamente. "+respose);
+        },
+
+        error: function(xhr, status){
+            console.log(status);
+            alert("Quizás no se registró.");
+        }
+    });
 }
 
 function cancelarPedido() {
