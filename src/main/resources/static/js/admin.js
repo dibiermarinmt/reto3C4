@@ -13,10 +13,10 @@ function pintarAdmin(name) {
                 <button class="nav-link active" id="usersTab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="home" aria-selected="true" onclick="pintarUsers()">Administrar Usuarios</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="fragancesTab" data-bs-toggle="tab" data-bs-target="#fragances" type="button" role="tab" aria-controls="profile" aria-selected="false">Administrar Productos</button>
+                <button class="nav-link" id="fragancesTab" data-bs-toggle="tab" data-bs-target="#fragances" type="button" role="tab" aria-controls="profile" aria-selected="false" onclick="pintarFragances()">Administrar Productos</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="logoutTab" data-bs-toggle="tab" data-bs-target="#logout" type="button" role="tab" aria-controls="contact" aria-selected="false">${name}</button>
+                <button class="nav-link" id="logoutTab" data-bs-toggle="tab" data-bs-target="#logout" type="button" role="tab" aria-controls="contact" aria-selected="false" onclick="pintarLogin()">${name}</button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">

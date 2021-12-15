@@ -6,7 +6,7 @@
  */
 
 // PARÁMETROS GLOBALES
-const raiz = "http://localhost:8080/api";
+const raiz = "http://localhost:8080/api"; // http://129.151.117.196:8080/api
 let alerta = "";
 
 /**

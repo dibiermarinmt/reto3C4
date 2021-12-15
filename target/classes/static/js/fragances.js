@@ -1,7 +1,25 @@
-let raiz = "http://localhost:8080/api/fragance"; //129.151.117.196
-let alerta = "";
+function pintarFragances() {
+    let fragances = `
+        <br>
+        <br>
+        <h4 class="mt-1 mb-5 pb-1">TABLA DE ADMINISTRACIÓN DE PRODUCTOS</h4>
+        <p>¿Deseas crear una nueva fragancia?
+            <br>
+            <br>
+            <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="crearFragance()">Crear</button>
+        </p>
+        <center><div id="editarFragance" style="width: 60%;"></div></center>
+        <div id="tablaFragances"></div>
+    `;
+    $("#fragances").html(fragances);
+    consultarFragances();
+}
 
-function pintarFragances(fragances) {
+
+// --- copy fragancesFunciones.js
+
+
+function pintarTablaFragances(fragances) {
     let miTabla = `
         <table class="table table-hover">
             <thead>
@@ -45,18 +63,14 @@ function pintarFragances(fragances) {
 
 function consultarFragances(){
     $.ajax({
-        url: raiz+"/all",
+        url: raiz+"/fragance/all",
         type:"GET",
         datatype:"JSON",
         success:function(fragances){
-            pintarFragances(fragances);
+            pintarTablaFragances(fragances);
         }
     });
 }
-
-$(document).ready(function(){
-    consultarFragances();
-});
 
 
 function borrarFragance(ref){
@@ -69,7 +83,7 @@ function borrarFragance(ref){
     $.ajax({        
         dataType: "JSON",       
         data: JSON.stringify(json),      
-        url: raiz+"/"+ref,
+        url: raiz+"/fragance/"+ref,
         type: "DELETE",
         contentType: "application/json",
 
@@ -86,7 +100,7 @@ function borrarFragance(ref){
     });
 }
 
-function pintarEditar(fragance){
+function pintarEditarFragance(fragance){
     let formulario = "";
         formulario += "<form>";
         formulario += "<h6 class='mt-1 mb-5 pb-1' style='color: red'>EDITANDO FRAGANCIA...</h6>";
@@ -137,8 +151,8 @@ function pintarEditar(fragance){
         let ref = JSON.stringify(fragance.reference);
 
         formulario += "<div>";
-        formulario += "<button class='btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3' type='button' onclick='guardarEditar("+ref+")'>Guardar</button> &nbsp; &nbsp;";
-        formulario += "<button class='btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3' type='button' onclick='cancelarEditar()'>Cancelar</button>";
+        formulario += "<button class='btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3' type='button' onclick='guardarEditarFragance("+ref+")'>Guardar</button> &nbsp; &nbsp;";
+        formulario += "<button class='btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3' type='button' onclick='cancelarEditarFragance()'>Cancelar</button>";
         formulario += "</div>";
         formulario += "</form>";
 
@@ -149,18 +163,18 @@ function pintarEditar(fragance){
 
 function editarFragance(ref) {
     $.ajax({
-        url: raiz + "/" +ref,
+        url: raiz + "/fragance/" +ref,
         type:"GET",
         async: false,
         datatype:"JSON",
         success:function(fragance){
             console.log(fragance);
-            pintarEditar(fragance);
+            pintarEditarFragance(fragance);
         }
     });
 }
 
-function cancelarEditar() {
+function cancelarEditarFragance() {
     $("#editarFragance").html("");
 }
 
@@ -181,7 +195,7 @@ function actualizarFragance(ref) {
     $.ajax({
         dataType: 'text',       
         data: dataToSend,        
-        url: raiz+'/update',        
+        url: raiz+'/fragance/update',        
         type: 'PUT',
         contentType:'application/json',        
         
@@ -202,8 +216,8 @@ function actualizarFragance(ref) {
 //-------------copy
 
 
-function guardarEditar(ref) {
-    if(datosValidos()) {
+function guardarEditarFragance(ref) {
+    if(datosFraganceValidos()) {
         actualizarFragance(ref);
     } else {
         alert(alerta);
@@ -211,7 +225,7 @@ function guardarEditar(ref) {
     } 
 }
 
-function registrarFragancia(){
+function registrarFragance(){
     let fragance = {
         brand: $("#brand").val(),
         category: $("#category").val(),
@@ -228,12 +242,12 @@ function registrarFragancia(){
         contentType:"application/json; charset=utf-8",
         dataType: "text", //mandaba parse error con JSON
         data: JSON.stringify(fragance),
-        url: raiz + "/new",
+        url: raiz + "/fragance/new",
 
         success: function(respose) {
             alert("Se registró fragancia correctamente.");
             consultarFragances();
-            pintarVer(fragance);
+            pintarVerFragance(fragance);
         },
 
         error: function(xhr, status){
@@ -243,7 +257,7 @@ function registrarFragancia(){
     });
 }
 
-function marcaValida() {
+function marcaFraganceValida() {
     if($("#brand").val() != "") {
         return true;
     } else {
@@ -252,7 +266,7 @@ function marcaValida() {
     }
 }
 
-function categoriaValida() {
+function categoriaFraganceValida() {
     if($("#category").val() != "") {
         return true;
     } else {
@@ -261,7 +275,7 @@ function categoriaValida() {
     }
 }
 
-function presentacionValida() {
+function presentacionFraganceValida() {
     if($("#presentation").val() != "") {
         return true;
     } else {
@@ -270,7 +284,7 @@ function presentacionValida() {
     }
 }
 
-function descripcionValida() {
+function descripcionFraganceValida() {
     if($("#description").val() != "") {
         return true;
     } else {
@@ -279,7 +293,7 @@ function descripcionValida() {
     }
 }
 
-function disponibilidadValida() {
+function disponibilidadFraganceValida() {
     if($("#availability").val() == "") {
         alerta = "Campo de disponibilidad vacío.";
         return false;
@@ -288,7 +302,7 @@ function disponibilidadValida() {
     }
 }
 
-function precioValido() {
+function precioFraganceValido() {
     if($("#price").val() == "") {
         alerta = "Campo de precio vacío.";
         return false;
@@ -297,7 +311,7 @@ function precioValido() {
     }
 }
 
-function cantidadValida() {
+function cantidadFraganceValida() {
     if($("#quantity").val() == "") {
         alerta = "Campo de cantidad vacío.";
         return false;
@@ -306,7 +320,7 @@ function cantidadValida() {
     }
 }
 
-function fotografiaValida() {
+function fotografiaFraganceValida() {
     if($("#photography").val() == "") {
         alerta = "Campo de fotografía vacío.";
         return false;
@@ -315,22 +329,22 @@ function fotografiaValida() {
     }
 }
 
-function datosValidos() {
+function datosFraganceValidos() {
     let validos = true;
-    validos &&= marcaValida();
-    validos &&= categoriaValida();
-    validos &&= presentacionValida();
-    validos &&= descripcionValida();
-    validos &&= disponibilidadValida();
-    validos &&= precioValido();
-    validos &&= cantidadValida();
-    validos &&= fotografiaValida();
+    validos &&= marcaFraganceValida();
+    validos &&= categoriaFraganceValida();
+    validos &&= presentacionFraganceValida();
+    validos &&= descripcionFraganceValida();
+    validos &&= disponibilidadFraganceValida();
+    validos &&= precioFraganceValido();
+    validos &&= cantidadFraganceValida();
+    validos &&= fotografiaFraganceValida();
     return validos;
 }
 
-function guardarCrear() {
-    if(datosValidos()) {
-        registrarFragancia();
+function guardarCrearFragance() {
+    if(datosFraganceValidos()) {
+        registrarFragance();
     } else {
         alert(alerta);
         alerta = "";
@@ -387,8 +401,8 @@ function crearFragance(){
         formulario += "</div>";
 
         formulario += "<div>";
-        formulario += "<button class='btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3' type='button' onclick='guardarCrear()'>Guardar</button> &nbsp; &nbsp;";
-        formulario += "<button class='btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3' type='button' onclick='cancelarEditar()'>Cancelar</button>";
+        formulario += "<button class='btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3' type='button' onclick='guardarCrearFragance()'>Guardar</button> &nbsp; &nbsp;";
+        formulario += "<button class='btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3' type='button' onclick='cancelarEditarFragance()'>Cancelar</button>";
         formulario += "</div>";
         formulario += "</form>";
 
@@ -398,17 +412,17 @@ function crearFragance(){
 
 function verFragance(ref) {
     $.ajax({
-        url: raiz + "/" +ref,
+        url: raiz + "/fragance/" +ref,
         type:"GET",
         async: false,
         datatype:"JSON",
         success:function(fragance){
-            pintarVer(fragance);
+            pintarVerFragance(fragance);
         }
     });
 }
 
-function pintarVer(fragance) {
+function pintarVerFragance(fragance) {
     
     let datos = `
         <div>
@@ -417,7 +431,7 @@ function pintarVer(fragance) {
                 <h6 class="card-title">${fragance.category}</h6>
                 <p class="card-text">
                     <br>
-                    <strong>Freferencia:</strong> &nbsp; ${fragance.reference}<br>
+                    <strong>Referencia:</strong> &nbsp; ${fragance.reference}<br>
                     <strong>Presentación:</strong> &nbsp; ${fragance.presentation}<br>
                     <strong>Descripción:</strong> &nbsp; ${fragance.description}<br>
                     <strong>Disponibilidad:</strong> &nbsp; ${fragance.availability}<br>
@@ -426,7 +440,7 @@ function pintarVer(fragance) {
                     <strong>Fotografía:</strong> &nbsp; ${fragance.photography}<br>
                 </p>
 
-                <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="cancelarEditar()">Cerrar</button>
+                <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom-2 mb-3" type="button" onclick="cancelarEditarFragance()">Cerrar</button>
                 
             </div>
         </div>
